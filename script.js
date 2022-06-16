@@ -2,16 +2,28 @@ const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const arr = ["","","","","","","","",""];
 
+    // checks if the tile isn't taken already
+    const emptyCheck = (position) => {
+        if(arr[position]!=""){
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    // enters value into HTML and the array
     squares.forEach(square => {
         square.addEventListener("click", (e) => {
-            let signMemory = gameState.playerTurn().signReturn();
-            e.target.innerHTML = `${signMemory}`;
-            arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
-            console.log(signMemory);
-        })   
+            if(emptyCheck(e.target.dataset.pannum)) {
+                let signMemory = gameState.playerTurn().signReturn();
+                e.target.innerHTML = `${signMemory}`;
+                arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
+                console.log(signMemory);
+            };
+        })  
     });
 
-    return {write,arr};
+    return {};
 })();
 
 // creates player objects
