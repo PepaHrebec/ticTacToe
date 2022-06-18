@@ -1,6 +1,7 @@
 const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const arr = ["","","","","","","","",""];
+    let round = 0;
 
     // checks if the tile isn't taken already
     const emptyCheck = (position) => {
@@ -18,7 +19,10 @@ const gameBoard = (() => {
                 let signMemory = gameState.playerTurn().signReturn();
                 e.target.innerHTML = `${signMemory}`;
                 arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
-                console.log(signMemory);
+                round = round + 1;
+                if(round === 9) {
+                    gameState.gameEnd();
+                };
             };
         })  
     });
@@ -45,9 +49,14 @@ const gameState = (() => {
             turn = true;
             return second;
         }
-    }
+    };
 
-    return {playerTurn};
+    const gameEnd = () => {
+        console.log("tie");
+    };
+
+
+    return {playerTurn, gameEnd};
 })();
 
 const first = playerFactory("X");
