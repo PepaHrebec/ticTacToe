@@ -20,6 +20,10 @@ const gameBoard = (() => {
                 console.log(`Player with the sign ${arr[innard[0]]}`);
                 boardReset();
             }
+            if(gameState.whichRound() === 9) {
+                console.log("Tie");
+                boardReset();
+            }
         });
     }
 
