@@ -1,7 +1,25 @@
 const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const arr = ["","","","","","","","",""];
-    let round = 0;
+    const winVar = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+
+    const winCheck = () => {
+        winVar.forEach(innard => {
+            if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
+            && arr[innard[0]] === arr[innard[2]]) {
+                console.log(`Player with the sign ${arr[innard[0]]}`);
+            }
+        });
+    }
 
     // checks if the tile isn't taken already
     const emptyCheck = (position) => {
@@ -19,10 +37,7 @@ const gameBoard = (() => {
                 let signMemory = gameState.playerTurn().signReturn();
                 e.target.innerHTML = `${signMemory}`;
                 arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
-                round = round + 1;
-                if(round === 9) {
-                    gameState.gameEnd();
-                };
+                winCheck();
             };
         })  
     });
@@ -40,8 +55,11 @@ const playerFactory = ((sign) => {
 
 // checks which player clicks
 const gameState = (() => {
+    let round = 0;
     let turn = true;
+
     const playerTurn = () => {
+        round = round + 1;
         if(turn) {
             turn = false;
             return first;
@@ -51,12 +69,16 @@ const gameState = (() => {
         }
     };
 
+    const whichRound = () => {
+        return round;
+    }
+
     const gameEnd = () => {
         console.log("tie");
     };
 
 
-    return {playerTurn, gameEnd};
+    return {playerTurn, whichRound, gameEnd};
 })();
 
 const first = playerFactory("X");
