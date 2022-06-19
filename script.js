@@ -1,3 +1,4 @@
+// oversees the board itself and interactions with it
 const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const arr = ["","","","","","","","",""];
@@ -17,9 +18,20 @@ const gameBoard = (() => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
             && arr[innard[0]] === arr[innard[2]]) {
                 console.log(`Player with the sign ${arr[innard[0]]}`);
+                boardReset();
             }
         });
     }
+
+    const boardReset = () => {
+        squares.forEach(square => {
+            square.innerHTML = "";
+        })
+        for(let i = 0; i<9; i++) {
+            arr[i] = "";
+        };
+        gameState.gameStateReset();
+    };
 
     // checks if the tile isn't taken already
     const emptyCheck = (position) => {
@@ -53,7 +65,7 @@ const playerFactory = ((sign) => {
     return {signReturn};
 });
 
-// checks which player clicks
+// oversees the logic behind turns
 const gameState = (() => {
     let round = 0;
     let turn = true;
@@ -71,14 +83,14 @@ const gameState = (() => {
 
     const whichRound = () => {
         return round;
-    }
-
-    const gameEnd = () => {
-        console.log("tie");
+    };
+    
+    const gameStateReset = () => {
+        round = 0;
+        turn = true;
     };
 
-
-    return {playerTurn, whichRound, gameEnd};
+    return {playerTurn, whichRound, gameStateReset};
 })();
 
 const first = playerFactory("X");
