@@ -19,19 +19,25 @@ const gameBoard = (() => {
         winVar.forEach(innard => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
             && arr[innard[0]] === arr[innard[2]]) {
-                winMess.innerHTML = `Player ${arr[innard[0]]} has won`;
-                boardReset();
+                winMess.innerHTML = `Player ${arr[innard[0]]} has won`; 
+                colorWin(innard[0],innard[1],innard[2]);              
             }
             if(gameState.whichRound() === 9) {
                 winMess.innerHTML = "Tie";
-                boardReset();
             }
         });
+    }
+
+    const colorWin = (fir,sec,thr) => {
+        document.querySelector(`[data-pannum="${fir}"]`).style.color = "red";
+        document.querySelector(`[data-pannum="${sec}"]`).style.color = "red";
+        document.querySelector(`[data-pannum="${thr}"]`).style.color = "red";
     }
 
     const boardReset = () => {
         squares.forEach(square => {
             square.innerHTML = "";
+            square.style.color="black";
         })
         for(let i = 0; i<9; i++) {
             arr[i] = "";
@@ -48,16 +54,18 @@ const gameBoard = (() => {
         }
     };
 
+    const clicked = (e) => {
+        if(emptyCheck(e.target.dataset.pannum)) {
+            let signMemory = gameState.playerTurn().signReturn();
+            e.target.innerHTML = `${signMemory}`;
+            arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
+            winCheck();
+        };
+    }
+
     // enters value into HTML and the array
     squares.forEach(square => {
-        square.addEventListener("click", (e) => {
-            if(emptyCheck(e.target.dataset.pannum)) {
-                let signMemory = gameState.playerTurn().signReturn();
-                e.target.innerHTML = `${signMemory}`;
-                arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
-                winCheck();
-            };
-        })  
+        square.addEventListener("click", clicked)  
     });
 
     resetBtn.addEventListener("click", boardReset);
