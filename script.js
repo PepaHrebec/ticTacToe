@@ -1,6 +1,7 @@
 // oversees the board itself and interactions with it
 const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
+    const resetBtn = document.querySelector(".resetBtn");
     const arr = ["","","","","","","","",""];
     const winVar = [
         [0, 1, 2],
@@ -57,6 +58,8 @@ const gameBoard = (() => {
             };
         })  
     });
+
+    resetBtn.addEventListener("click", boardReset);
 
     return {};
 })();
