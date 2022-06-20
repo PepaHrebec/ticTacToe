@@ -2,6 +2,7 @@
 const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const resetBtn = document.querySelector(".resetBtn");
+    const winMess = document.querySelector(".winMess");
     const arr = ["","","","","","","","",""];
     const winVar = [
         [0, 1, 2],
@@ -18,11 +19,11 @@ const gameBoard = (() => {
         winVar.forEach(innard => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
             && arr[innard[0]] === arr[innard[2]]) {
-                console.log(`Player with the sign ${arr[innard[0]]}`);
+                winMess.innerHTML = `Player ${arr[innard[0]]} has won`;
                 boardReset();
             }
             if(gameState.whichRound() === 9) {
-                console.log("Tie");
+                winMess.innerHTML = "Tie";
                 boardReset();
             }
         });
