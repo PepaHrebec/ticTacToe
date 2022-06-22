@@ -1,4 +1,4 @@
-$box: 60px;
+$box: 150px;
 
 * {
     margin: 0;
@@ -6,8 +6,21 @@ $box: 60px;
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
 .board {
     display: grid;
+    gap: 8px;
     grid-template-columns: repeat(3,$box);
     grid-template-rows: repeat(3,$box);
 }
@@ -15,8 +28,14 @@ $box: 60px;
 .panel {
     width: $box;
     height: $box;
-    border: 4px black solid;
+    background-color: gainsboro;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 4em;
+}
+
+.winMess {
+    min-height: 2em;
 }
