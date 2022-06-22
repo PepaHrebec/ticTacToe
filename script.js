@@ -88,17 +88,32 @@ const playerFactory = ((sign) => {
 
 // oversees the logic behind turns
 const gameState = (() => {
+    const trafLigOne = document.querySelector(".playerOne");
+    const trafLigTwo = document.querySelector(".playerTwo");
+    trafLigOne.style.backgroundColor = "red";
     let round = 0;
     let turn = true;
+
+    const setTrafLight = (decider) => {
+        if (decider) {
+            trafLigOne.style.backgroundColor = "red";
+            trafLigTwo.style.backgroundColor = "gainsboro";
+        } else {
+            trafLigOne.style.backgroundColor = "gainsboro";
+            trafLigTwo.style.backgroundColor = "red";
+        };
+    };
 
     // counts turns and chooses which sign is placed
     const playerTurn = () => {
         round = round + 1;
         if(turn) {
             turn = false;
+            setTrafLight(turn);
             return first;
         } else {
             turn = true;
+            setTrafLight(turn);
             return second;
         }
     };
@@ -112,6 +127,7 @@ const gameState = (() => {
     const gameStateReset = () => {
         round = 0;
         turn = true;
+        setTrafLight(turn);
     };
 
     return {playerTurn, whichRound, gameStateReset};
