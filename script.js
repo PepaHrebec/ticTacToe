@@ -20,11 +20,11 @@ const gameBoard = (() => {
         winVar.forEach(innard => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
             && arr[innard[0]] === arr[innard[2]]) {
-                winMess.innerHTML = `Player ${arr[innard[0]]} has won`; 
+                winMess.innerHTML = `Player ${arr[innard[0]]} has won!`; 
                 colorWin(innard[0],innard[1],innard[2]);              
             }
             if(gameState.whichRound() === 9) {
-                winMess.innerHTML = "Tie";
+                winMess.innerHTML = "Tie.";
             }
         });
     }
