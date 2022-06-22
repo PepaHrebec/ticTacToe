@@ -15,6 +15,7 @@ const gameBoard = (() => {
         [2, 4, 6],
       ];
 
+    // checks for 3 signs in a row
     const winCheck = () => {
         winVar.forEach(innard => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
@@ -28,13 +29,16 @@ const gameBoard = (() => {
         });
     }
 
+    // changes the color of the winning signs
     const colorWin = (fir,sec,thr) => {
         document.querySelector(`[data-pannum="${fir}"]`).style.color = "red";
         document.querySelector(`[data-pannum="${sec}"]`).style.color = "red";
         document.querySelector(`[data-pannum="${thr}"]`).style.color = "red";
     }
 
+    // resets all variables
     const boardReset = () => {
+        winMess.innerHTML = "";
         squares.forEach(square => {
             square.innerHTML = "";
             square.style.color="black";
@@ -54,8 +58,9 @@ const gameBoard = (() => {
         }
     };
 
+    // inserts sign into DOM and the array
     const clicked = (e) => {
-        if(emptyCheck(e.target.dataset.pannum)) {
+        if(emptyCheck(e.target.dataset.pannum) && winMess.innerHTML === "") {
             let signMemory = gameState.playerTurn().signReturn();
             e.target.innerHTML = `${signMemory}`;
             arr[parseInt(e.target.dataset.pannum)]=`${signMemory}`;
@@ -86,6 +91,7 @@ const gameState = (() => {
     let round = 0;
     let turn = true;
 
+    // counts turns and chooses which sign is placed
     const playerTurn = () => {
         round = round + 1;
         if(turn) {
@@ -97,10 +103,12 @@ const gameState = (() => {
         }
     };
 
+    // returns rounds
     const whichRound = () => {
         return round;
     };
     
+    // tied to the main reset
     const gameStateReset = () => {
         round = 0;
         turn = true;
