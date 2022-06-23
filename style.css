@@ -16,13 +16,22 @@ body {
   align-items: center;
 }
 
+.scoreKeep {
+  display: flex;
+  align-items: center;
+  gap: 5vw;
+}
+.scoreKeep .oneWins, .scoreKeep .twoWins {
+  font-size: 2em;
+}
+
 .players {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 40vw;
 }
-.players div {
+.players .playerOne, .players .playerTwo {
   background-color: gainsboro;
   font-size: 2em;
   border-radius: 10px;

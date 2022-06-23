@@ -3,6 +3,10 @@ const gameBoard = (() => {
     const squares = document.querySelectorAll(".panel");
     const resetBtn = document.querySelector(".resetBtn");
     const winMess = document.querySelector(".winMess");
+    const oneWins = document.querySelector(".oneWins");
+    const twoWins = document.querySelector(".twoWins");
+    let oneScore = 0;
+    let twoScore = 0;
     const arr = ["","","","","","","","",""];
     const winVar = [
         [0, 1, 2],
@@ -21,7 +25,15 @@ const gameBoard = (() => {
             if(arr[innard[0]] !== "" && arr[innard[0]] === arr[innard[1]] 
             && arr[innard[0]] === arr[innard[2]]) {
                 winMess.innerHTML = `Player ${arr[innard[0]]} has won!`; 
-                colorWin(innard[0],innard[1],innard[2]);              
+                colorWin(innard[0],innard[1],innard[2]); 
+                if(arr[innard[0]] === "X") {
+                    oneScore = oneScore + 1;
+                    oneWins.innerHTML = `${oneScore}`;
+                } 
+                if(arr[innard[0]] === "O") {
+                    twoScore = twoScore + 1;
+                    twoWins.innerHTML = `${twoScore}`;
+                }
             }
             if(gameState.whichRound() === 9) {
                 winMess.innerHTML = "Tie.";
