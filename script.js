@@ -34,8 +34,7 @@ const gameBoard = (() => {
                     twoScore = twoScore + 1;
                     twoWins.innerHTML = `${twoScore}`;
                 }
-            }
-            if(gameState.whichRound() === 9) {
+            } else if(gameState.whichRound() === 9) {
                 winMess.innerHTML = "Tie.";
             }
         });
